@@ -62,99 +62,102 @@
             </div>
         </nav>
         <!-- ========== FIN Menu =================================-->
-        <!-- ======Inicio Tabla Resumen Presupuesto============ -->
-        <div class="container">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body container">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                   <!--  <div class="container"> -->
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">PRESUPUESTO</th>
-                                    <th scope="col">GASTOS</th>
-                                    <th scope="col">SALDO</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td colspan="2">Larry the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    <!-- </div> -->
+        
+
+        <main>
+            <div class="container">
+                <div class="row">
+                    <!-- Card de Ingreso del presupuesto -->
+                    <div class="col-md-6">
+                        <div class="card card bg-success border-success">
+                            <!-- <div class="card-header"><h5>Ingresa Tu Presupuesto</h5></div> -->
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="presupuesto">Ingresa Tu Presupuesto</label>
+                                    <input type="number" id="montoPresupuesto" class="form-control">
+                                </div>
+                                <button id="btnAceptarPresupuesto" class="btn btn-primary">Calcular</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card cálculo del presupuesto (presupuest - sumatoria de gastos = saldo) -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <!-- <div class="card-header">Tabla de calculo de presupuesto</div> -->
+                            <div class="card-body">
+                                <table id="tablaCalculoPresupuesto" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="">PRESUPUESTO</th>
+                                            <th>GASTOS</th>
+                                            <th>SALDO</th>
+                                       
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            
+                                            <td ><span id="thMontoPresupuesto">--</span></td>
+                                            <td ><span id="thTotalGastos">--</span></td>
+                                            <td ><span id="thSaldoPresupuesto">--</span></td>
+                                          </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- ======FIN Tabla Resumen Presupuesto============ -->
-
-        <!-- ======Inicio Tabla detalle de Gastos============ -->
-        <div class="container">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                    <div class="container">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">GASTO</th>
-                                    <th scope="col">VALOR</th>
-                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td colspan="2">Larry the Bird</td>
-                                    
-                                </tr>
-                            </tbody>
-                        </table>
+                <div class="row mt-3">
+                    <!-- Card de ingreso de gastos -->
+                    <div class="col-md-6">
+                        <div class="card bg-warning text-dark">
+                            <!-- <div class="card-header">Ingreso de Gastos</div> -->
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="descripcionGasto">Ingresa El Nombre Del Gasto</label>
+                                    <input type="text" id="descripcionGasto" class="form-control bg-transparent text-dark ">
+                                </div>
+                                <div class="form-group">
+                                    <label for="montoGasto">Ingresa La Cantidad Del Gasto</label>
+                                    <input type="number" id="montoGasto" class="form-control bg-transparent text-dark">
+                                </div>
+                                <button id="btnAceptarGasto" class="btn btn-primary bg-transparent text-dark">Añadir Gasto</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card con detalle de todos los gastos ingresados -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <!-- <div class="card-header">Tabla de Gastos</div> -->
+                            <div class="card-body">
+                                <table id="tablaGastos" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>GASTO</th>
+                                            <th>VALOR</th>
+                                       
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tBodyDetalleGasto">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
 
-        <!-- ======FIN Tabla detalle de Gastos============ -->
+        <footer id="Pie" class="footer"><!-- class="fixed-bottom" -->
+            <div class="container-fluid ">
+                <p>Copyright &copy; 2023 - JS FullStack Trainee</p>
+            </div>
+    
+        </footer>
+        
+        
     </header>
 
     <!-- ===================== popper y js de bootstrap ===================== -->
