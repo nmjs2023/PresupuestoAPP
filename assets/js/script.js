@@ -1,5 +1,7 @@
 console.clear();
 
+
+
 /*  Ejemplo estructura del arreglo de presupuesto a ser utilizado
 presupuesto = {
     presupuestoInicial: 100_000,
@@ -10,26 +12,23 @@ presupuesto = {
 
 const presupuesto = {
     presupuestoInicial: 0,
-    //totalGastos: 0,
     detalleGastos: [],
     totalGastos: function () {
         let suma = 0;
-        presupuesto.detalleGastos.forEach(gasto => {
+        this.detalleGastos.forEach((gasto) => {
             suma += gasto.montoGasto;
-            //suma += gasto[1];
         });
         return suma;
-    }
+    },
+    agregarGastoArreglo: function (descripcionGasto, montoGasto) {
+        this.detalleGastos.push({ descripcionGasto, montoGasto });
+      }
 };
 
 
+const btnAceptarPresupuesto = document.getElementById("btnAceptarPresupuesto");
 
-console.log(presupuesto);
-
-
-btnAceptarPresupuesto = document.getElementById('btnAceptarPresupuesto');
-
-btnAceptarPresupuesto.addEventListener('click', function () {
+btnAceptarPresupuesto.addEventListener("click", function () {
     /* console.log('---> Inicio Evento Click Presupuesto'); */
     if (presupuesto.presupuestoInicial > 0) {
         /* alert(`ya hay un prsupuesto inicial, desea modificarlo??? ---CAMBIAR POR UN MODAL`); */
@@ -38,18 +37,18 @@ btnAceptarPresupuesto.addEventListener('click', function () {
         console.log("IMPLEMENTAR ELSE")
     }
     /* let montoPresupuesto = document.getElementById('montoPresupuesto'); */
-    const montoPresupuesto = document.querySelector('#montoPresupuesto');
+    const montoPresupuesto = document.querySelector("#montoPresupuesto");
     /* en base 10 --> notación decimal */
-    presupuesto.presupuestoInicial = parseInt(montoPresupuesto.value,10);  
+    presupuesto.presupuestoInicial = parseInt(montoPresupuesto.value, 10);
     renderResumenPresupuesto();
-    
+
     /* console.log('--- Fin Evento Click Presupuesto'); */
 });
 
 function eliminaNodos(pTag) {
     /*  Elimina los hijos de un determinado Tag.    */
-    
-    console.log("dentro de eliminaNodos -->" + pTag)
+
+    console.log("--> eliminando nodos de detalle de tabla de gastos..." + pTag)
     var elemento = document.getElementById(pTag);
     while (elemento.firstChild) {
         elemento.removeChild(elemento.firstChild);
@@ -57,7 +56,12 @@ function eliminaNodos(pTag) {
 
 };
 
-function renderResumenPresupuesto ()  {
+function renderResumenPresupuesto() {
+    console.log("--> Actualizando datos de resumen de presupuesto (presupuesto-total gastos = saldo)...")
+    const thMontoPresupuesto = document.getElementById("thMontoPresupuesto");
+    const thTotalGastos = document.getElementById("thTotalGastos");
+    const thSaldoPresupuesto = document.getElementById("thSaldoPresupuesto");
+
     thMontoPresupuesto.innerText = presupuesto.presupuestoInicial;
     thTotalGastos.innerText = presupuesto.totalGastos();
     thSaldoPresupuesto.innerText = presupuesto.presupuestoInicial - presupuesto.totalGastos();
@@ -66,52 +70,73 @@ function renderResumenPresupuesto ()  {
 function renderDetalleGastos() {
     //sólo se renderizan las filas de detalle de gastos (no los encabezados)
 
-    //primero se eliminan filas de detalle de la tabla de gastos (si es que existen)
-    eliminaNodos('tBodyDetalleGasto');
-    const tBodyDetalleGasto = document.querySelector('#tBodyDetalleGasto');
+    const tBodyDetalleGasto = document.querySelector("#tBodyDetalleGasto");
 
-    let cuenta =0;
-    presupuesto.detalleGastos.forEach(function (gastoAux) {
-        const fila = document.createElement('tr');
-        const colDescGasto = document.createElement('td');
-        const colValorGasto = document.createElement('td');
-        const colEliminaGasto = document.createElement('td');
-        const btnEliminarGasto = document.createElement('button');
-        
-        
-        btnEliminarGasto.setAttribute('id', `btnEliminar${cuenta}`);
-        btnEliminarGasto.setAttribute('class', 'btn rounded-fill');
+    //se eliminan filas de detalle de la tabla de gastos (si es que existen)
+    eliminaNodos("tBodyDetalleGasto");
 
-        
+    console.log("--> renderizando en pantalla detalle de gastos segun contenido de presupuesto.detalleGastos[]....")
+    presupuesto.detalleGastos.forEach(function (gastoAux, idx) {
 
-        const iconoEliminar = document.createElement('i');
-        iconoEliminar.setAttribute('class', 'bi bi-trash')
+        const fila = document.createElement("tr");
 
+        //para centrar datos de fila verticalmente
+        fila.setAttribute("class", "align-middle"); 
+
+        const colDescGasto = document.createElement("td");
+        const colValorGasto = document.createElement("td");
+
+        //para alinear a la derecha el monto del gasto en el detalle de la tabla de gastos
+        colValorGasto.setAttribute("class", "text-end"); 
+
+        const colEliminaGasto = document.createElement("td");
+        const btnEliminarGasto = document.createElement("button");
+
+        //se deja botón eliminar gasto con esquinas redondeadas y se agrega icono "trash" de bootstrap icons
+        btnEliminarGasto.setAttribute("class", "btn rounded-fill bi bi-trash text-danger");
+
+        //se asigna propiedad data-idx-button con el valor de índice del arreglo para 
+        //controlar posición del arreglo asociada al botón de eliminar gasto
+        btnEliminarGasto.setAttribute("data-idxButton", idx);
+
+        btnEliminarGasto.addEventListener("click", function (event) {
+            // Se agrega controlador de evento a botón eliminar de la fila de detalle de gasto
+            let boton = event.target;
+            console.log("botón eliminar seleccionado:");
+            console.log(boton);
+
+            let numeroGasto = boton.getAttribute("data-idxButton");
+            console.log(`indice (data-idxButton) de botón seleccionado: ${numeroGasto}`);
+
+            //al hacer click en el botón eliminar de una 
+            //determinada fila de gasto se envia el indice del arreglo que será eliminado
+            eliminarGasto(numeroGasto);
+        });
 
 
         colDescGasto.innerHTML = gastoAux.descripcionGasto;
         colValorGasto.innerHTML = gastoAux.montoGasto;
 
-        btnEliminarGasto.appendChild(iconoEliminar);
+        /* btnEliminarGasto.appendChild(iconoEliminar); */
         colEliminaGasto.appendChild(btnEliminarGasto);
 
         fila.append(colDescGasto, colValorGasto, colEliminaGasto);
         tBodyDetalleGasto.append(fila);
-    })    
-    
+
+    });
+
 }
 
-btnAceptarGasto = document.getElementById('btnAceptarGasto');
+const btnAceptarGasto = document.getElementById("btnAceptarGasto");
 
-btnAceptarGasto.addEventListener('click', function () {
-    const descripcionGasto = document.querySelector('#descripcionGasto');
+btnAceptarGasto.addEventListener("click", function () {
+    const descripcionGasto = document.querySelector("#descripcionGasto");
     console.log(`descrip del gasto capturado: ${descripcionGasto.value}`);
 
-    const montoGasto = document.querySelector('#montoGasto');
+    const montoGasto = document.querySelector("#montoGasto");
     console.log(`monto del gasto capturado: ${montoGasto.value}`);
 
-   
-    agregarGastoArreglo(descripcionGasto.value, parseInt(montoGasto.value));
+    presupuesto.agregarGastoArreglo(descripcionGasto.value, parseInt(montoGasto.value));
 
 
     renderResumenPresupuesto();
@@ -119,12 +144,19 @@ btnAceptarGasto.addEventListener('click', function () {
 });
 
 
-function agregarGastoArreglo(descripcionGasto, montoGasto) {
-    presupuesto.detalleGastos.push({descripcionGasto, montoGasto});
+function eliminarGasto(idx) {
     
-    
-    //Se actualiza el valor total de gastos (sumatoria de detalle de gastos ingresados)
-    //presupuesto.totalGastos = sumarDetalleGatos();
-    //console.log(presupuesto);
-};
+    console.log(`ID de elemento a eliminar: ${idx}`);
+    console.log(`objeto presupuesto:`);
+    console.log(presupuesto);
+
+    //Se elimina del arreglo "presupuesto" el gasto seleccionado según indice "idx"
+    presupuesto.detalleGastos.splice(idx, 1);
+
+    //se actualiza en pantalla el resumen de presupuesto
+    renderResumenPresupuesto();
+
+    //se actualizan datos de tabla de detalle de gastos con la información existente en presupuesto.detalleGastos
+    renderDetalleGastos();
+}
 
