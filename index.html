@@ -28,7 +28,7 @@
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+               <!--  <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">Home</a>
@@ -58,90 +58,91 @@
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
-                </div>
+                </div> -->
             </div>
         </nav>
         <!-- ========== FIN Menu =================================-->
-        
+    </header>
 
-        <main>
-            <div class="container">
-                <div class="row">
-                    <!-- Card de Ingreso del presupuesto -->
-                    <div class="col-md-6">
-                        <div class="card card bg-success border-success">
-                            <!-- <div class="card-header"><h5>Ingresa Tu Presupuesto</h5></div> -->
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="presupuesto">Ingresa Tu Presupuesto</label>
-                                    <input type="number" id="montoPresupuesto" class="form-control">
-                                </div>
-                                <button id="btnAceptarPresupuesto" class="btn btn-primary">Calcular</button>
+    <main>
+        <div class="container">
+            <div class="row">
+                <!-- Card de Ingreso del presupuesto -->
+                <div class="col-md-6">
+                    <div class="card card bg-success border-success">
+                        <!-- <div class="card-header"><h5>Ingresa Tu Presupuesto</h5></div> -->
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="presupuesto">Ingresa Tu Presupuesto</label>
+                                <input type="number" id="montoPresupuesto" class="form-control">
                             </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Card cálculo del presupuesto (presupuest - sumatoria de gastos = saldo) -->
-                    <div class="col-md-6">
-                        <div class="card">
-                            <!-- <div class="card-header">Tabla de calculo de presupuesto</div> -->
-                            <div class="card-body">
-                                <table id="tablaCalculoPresupuesto" class="table">
-                                    <thead>
-                                        <tr>
-                                            <th class="">PRESUPUESTO</th>
-                                            <th>GASTOS</th>
-                                            <th>SALDO</th>
-                                       
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            
-                                            <td ><span id="thMontoPresupuesto">--</span></td>
-                                            <td ><span id="thTotalGastos">--</span></td>
-                                            <td ><span id="thSaldoPresupuesto">--</span></td>
-                                          </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <button id="btnAceptarPresupuesto" class="btn btn-primary">Calcular</button>
                         </div>
                     </div>
                 </div>
-                <div class="row mt-3">
-                    <!-- Card de ingreso de gastos -->
-                    <div class="col-md-6">
-                        <div class="card bg-warning text-dark">
-                            <!-- <div class="card-header">Ingreso de Gastos</div> -->
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="descripcionGasto">Ingresa El Nombre Del Gasto</label>
-                                    <input type="text" id="descripcionGasto" class="form-control bg-transparent text-dark ">
-                                </div>
-                                <div class="form-group">
-                                    <label for="montoGasto">Ingresa La Cantidad Del Gasto</label>
-                                    <input type="number" id="montoGasto" class="form-control bg-transparent text-dark">
-                                </div>
-                                <button id="btnAceptarGasto" class="btn btn-primary bg-transparent text-dark">Añadir Gasto</button>
-                            </div>
+
+                <!-- Card cálculo del presupuesto (presupuest - sumatoria de gastos = saldo) -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <!-- <div class="card-header">Tabla de calculo de presupuesto</div> -->
+                        <div class="card-body">
+                            <table id="tablaCalculoPresupuesto" class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="">PRESUPUESTO</th>
+                                        <th>GASTOS</th>
+                                        <th>SALDO</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+
+                                        <td><span id="thMontoPresupuesto">--</span></td>
+                                        <td><span id="thTotalGastos">--</span></td>
+                                        <td><span id="thSaldoPresupuesto">--</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    
-                    <!-- Card con detalle de todos los gastos ingresados -->
-                    <div class="col-md-6">
-                        <div class="card">
-                            <!-- <div class="card-header">Tabla de Gastos</div> -->
-                            <div class="card-body">
-                                <table id="tablaGastos" class="table">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 70%">GASTO</th>
-                                            <th style="width: 28%" class="text-end">VALOR</th>
-                                            <th style="width: 2%"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tBodyDetalleGasto">
-                                        <!-- <tr  class="align-middle">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <!-- Card de ingreso de gastos -->
+                <div class="col-md-6">
+                    <div class="card bg-warning text-dark">
+                        <!-- <div class="card-header">Ingreso de Gastos</div> -->
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="descripcionGasto">Ingresa El Nombre Del Gasto</label>
+                                <input type="text" id="descripcionGasto" class="form-control bg-transparent text-dark ">
+                            </div>
+                            <div class="form-group">
+                                <label for="montoGasto">Ingresa La Cantidad Del Gasto</label>
+                                <input type="number" id="montoGasto" class="form-control bg-transparent text-dark">
+                            </div>
+                            <button id="btnAceptarGasto" class="btn btn-primary bg-transparent text-dark">Añadir
+                                Gasto</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card con detalle de todos los gastos ingresados -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <!-- <div class="card-header">Tabla de Gastos</div> -->
+                        <div class="card-body">
+                            <table id="tablaGastos" class="table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 70%">GASTO</th>
+                                        <th style="width: 28%" class="text-end">VALOR</th>
+                                        <th style="width: 2%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tBodyDetalleGasto">
+                                    <!-- <tr  class="align-middle">
                                             <td>ddd</td>
                                             <td class="text-end">500</td>
                                             <td>
@@ -150,24 +151,46 @@
                                                 </button>
                                             </td>
                                         </tr> -->
-                                    </tbody>
-                                </table>
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
+    </main>
 
-        <footer id="Pie" class="footer"><!-- class="fixed-bottom" -->
-            <div class="container-fluid ">
-                <p>Copyright &copy; 2023 - JS FullStack Trainee</p>
+    <footer id="Pie" class="footer"><!-- class="fixed-bottom" -->
+        <div class="container-fluid ">
+            <p>Copyright &copy; 2023 - JS FullStack Trainee</p>
+        </div>
+
+    </footer>
+
+    <section>
+        <!-- estructura base de modal-->
+
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" id="btnAceptarEliminacion">Aceptar</button>
+                    </div>
+                </div>
             </div>
-    
-        </footer>
-        
-        
-    </header>
+        </div>
+    </section>
+
 
     <!-- ===================== popper y js de bootstrap ===================== -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
@@ -182,7 +205,7 @@
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <!-- ===================== Scripts personalizados =====================  -->
     <script src="assets/js/script.js"></script>
-    
+
 </body>
 
 </html>
